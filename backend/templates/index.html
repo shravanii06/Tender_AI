@@ -1,0 +1,144 @@
+{% extends "base.html" %}
+{% block content %}
+
+<!-- HERO SECTION -->
+<section class="hero-section p-5 text-center rounded-4 shadow-lg mb-5">
+
+<h1 class="fw-bold display-5 hero-title">
+AI-Driven Local Government Tender Aggregator
+</h1>
+
+<p class="lead mt-3 hero-sub">
+Find local tenders powered by AI insights, risk scoring & smart matching.
+</p>
+
+<div class="mt-4">
+<a href="/explore" class="btn-explore">🚀 Explore Tenders</a>
+<a href="/register" class="btn-register">📝 Register</a>
+</div>
+
+</section>
+
+
+<!-- FEATURES -->
+<div class="row text-center mb-5">
+
+<div class="col-md-3">
+<div class="p-4 bg-white rounded-4 shadow-sm h-100">
+<h4>⚡</h4>
+<h6 class="fw-bold mt-2">AI-Powered Matching</h6>
+<p class="text-muted small">Personalized tender recommendations</p>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="p-4 bg-white rounded-4 shadow-sm h-100">
+<h4>🛡️</h4>
+<h6 class="fw-bold mt-2">Transparent Process</h6>
+<p class="text-muted small">All government tenders in one place</p>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="p-4 bg-white rounded-4 shadow-sm h-100">
+<h4>📈</h4>
+<h6 class="fw-bold mt-2">Real-Time Updates</h6>
+<p class="text-muted small">Instant alerts for new tenders</p>
+</div>
+</div>
+
+<div class="col-md-3">
+<div class="p-4 bg-white rounded-4 shadow-sm h-100">
+<h4>👥</h4>
+<h6 class="fw-bold mt-2">SME Friendly</h6>
+<p class="text-muted small">Designed for small businesses</p>
+</div>
+</div>
+
+</div>
+
+
+<!-- STATS -->
+<div class="row text-center mb-5">
+
+<div class="col-md-3">
+<h3 class="fw-bold text-primary">2,500+</h3>
+<p class="text-muted">Active Tenders</p>
+</div>
+
+<div class="col-md-3">
+<h3 class="fw-bold text-success">15,000+</h3>
+<p class="text-muted">Registered Businesses</p>
+</div>
+
+<div class="col-md-3">
+<h3 class="fw-bold text-danger">$2.5B+</h3>
+<p class="text-muted">Total Value</p>
+</div>
+
+<div class="col-md-3">
+<h3 class="fw-bold text-dark">98%</h3>
+<p class="text-muted">Satisfaction Rate</p>
+</div>
+
+</div>
+
+<hr class="mb-4">
+
+<!-- LATEST TENDERS -->
+<h3 class="mb-4 fw-bold">Latest Tenders</h3>
+
+{% if tenders %}
+<div class="row">
+
+{% for tender in tenders %}
+<div class="col-md-4 mb-4">
+
+<div class="card border-0 shadow-lg rounded-4 h-100">
+<div class="card-body">
+
+<h5 class="fw-bold">{{ tender.title }}</h5>
+
+<p class="text-muted small mb-1">
+{{ tender.department }}
+</p>
+
+<p class="small">
+📍 {{ tender.location }} <br>
+⏳ Deadline: {{ tender.deadline }}
+</p>
+
+<hr>
+
+<div class="d-flex justify-content-between small">
+
+<span class="badge bg-danger">
+Risk {{ tender.risk_score }}
+</span>
+
+<span class="badge bg-secondary">
+Difficulty {{ tender.difficulty_score }}
+</span>
+
+<span class="badge bg-info text-dark">
+Relevance {{ tender.relevance_score }}
+</span>
+
+<span class="badge bg-primary">
+Fit {{ tender.fit_score }}
+</span>
+
+</div>
+
+</div>
+</div>
+
+</div>
+{% endfor %}
+
+</div>
+{% else %}
+<p class="text-muted">No tenders available yet.</p>
+{% endif %}
+
+{% endblock %}

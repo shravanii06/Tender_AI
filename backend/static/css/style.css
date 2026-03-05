@@ -1,0 +1,163 @@
+/* GLOBAL */
+
+body{
+background:#f4f7fb;
+font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+
+/* HERO SECTION */
+
+.hero-section{
+background: linear-gradient(135deg,#0d6efd,#6610f2);
+color:white;
+padding:70px 40px;
+}
+
+.hero-title{
+font-size:42px;
+font-weight:700;
+color:white;
+}
+
+.hero-sub{
+font-size:18px;
+opacity:0.95;
+color:white;
+}
+
+
+/* BUTTONS */
+
+.btn-explore{
+background:#ffffff;
+color:#0d6efd;
+padding:12px 28px;
+border-radius:30px;
+text-decoration:none;
+font-weight:600;
+margin-right:15px;
+transition:0.3s;
+}
+
+.btn-explore:hover{
+background:#e9ecef;
+transform:translateY(-2px);
+box-shadow:0 10px 20px rgba(0,0,0,0.2);
+}
+
+.btn-register{
+background:transparent;
+color:white;
+padding:12px 28px;
+border-radius:30px;
+text-decoration:none;
+font-weight:600;
+border:2px solid white;
+transition:0.3s;
+}
+
+.btn-register:hover{
+background:white;
+color:#0d6efd;
+}
+
+
+/* FEATURE BOXES */
+
+.feature-box{
+background:white;
+border-radius:18px;
+padding:25px;
+transition:0.3s;
+}
+
+.feature-box:hover{
+transform:translateY(-5px);
+box-shadow:0 15px 35px rgba(0,0,0,0.15);
+}
+
+
+/* STATS */
+
+.stats h3{
+font-weight:700;
+}
+
+
+/* TENDER CARDS */
+
+.card{
+border-radius:18px;
+transition:0.3s;
+}
+
+.card:hover{
+transform:translateY(-6px);
+box-shadow:0 15px 35px rgba(0,0,0,0.2);
+}
+
+.card-title{
+font-size:18px;
+font-weight:600;
+}
+
+
+/* BADGES */
+
+.badge{
+font-size:12px;
+padding:6px 10px;
+}
+
+
+/* NAVBAR */
+
+.navbar{
+background:white !important;
+box-shadow:0 4px 15px rgba(0,0,0,0.08);
+}
+
+.navbar-brand{
+font-weight:700;
+color:#0d6efd !important;
+}
+
+.nav-link{
+font-weight:500;
+}
+
+
+/* SEARCH */
+
+.search-box{
+background:white;
+padding:15px;
+border-radius:12px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+
+/* FOOTER */
+
+.footer{
+background:#0f2027;
+color:white;
+padding:40px 0;
+margin-top:80px;
+}
+
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+.hero-title{
+font-size:30px;
+}
+
+.card{
+margin-bottom:20px;
+}
+
+}

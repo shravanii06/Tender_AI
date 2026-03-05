@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block content %}
+<h2>Dashboard</h2>
+
+<a href="/scrape" class="btn btn-primary mb-3">Scrape Tenders</a>
+
+<table class="table table-bordered">
+<tr>
+<th>Title</th>
+<th>EMD</th>
+<th>Relevance</th>
+<th>Risk</th>
+<th>Difficulty</th>
+<th>Fit</th>
+</tr>
+
+{% for t in tenders %}
+<tr>
+<td>{{ t.title }}</td>
+<td>{{ t.emd }}</td>
+<td>{{ t.relevance_score }}</td>
+<td>{{ t.risk_score }}</td>
+<td>{{ t.difficulty_score }}</td>
+<td>{{ t.fit_score }}</td>
+</tr>
+{% endfor %}
+
+</table>
+{% endblock %}
