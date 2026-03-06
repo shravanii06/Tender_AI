@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-4">
+
+<h2 class="fw-bold mb-4">🔔 Notifications & Alerts</h2>
+
+{% if notes %}
+
+<div class="list-group">
+
+{% for n in notes %}
+
+<div class="list-group-item shadow-sm rounded mb-3">
+
+<h5 class="fw-bold">{{ n.title }}</h5>
+
+<p class="text-muted">
+{{ n.message }}
+</p>
+
+<small class="text-secondary">
+{{ n.time }}
+</small>
+
+</div>
+
+{% endfor %}
+
+</div>
+
+{% else %}
+
+<div class="alert alert-info">
+No notifications available.
+</div>
+
+{% endif %}
+
+</div>
+
+{% endblock %}

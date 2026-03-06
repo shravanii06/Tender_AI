@@ -106,6 +106,26 @@ def explore():
 
     return render_template("explore.html", tenders=tenders)
 
+@app.route("/notifications")
+def notifications():
+
+    notes = [
+
+        {
+            "title": "New Tender Available",
+            "message": "A new construction tender is available in Nagpur.",
+            "time": "Today"
+        },
+
+        {
+            "title": "Deadline Reminder",
+            "message": "Tender 'Road Repair Project' closes tomorrow.",
+            "time": "1 day ago"
+        }
+
+    ]
+
+    return render_template("notifications.html", notes=notes)
 
 # ---------------- REGISTER ----------------
 
@@ -137,7 +157,7 @@ def register():
             conn.commit()
             conn.close()
 
-            return redirect("/login")
+            return redirect("/profile")
 
         except sqlite3.IntegrityError:
 
@@ -149,7 +169,7 @@ def register():
 
 # ---------------- LOGIN ----------------
 
-@app.route("/login", methods=["GET", "POST"])
+@app.route("/login", methods=["GET","POST"])
 def login():
 
     if request.method == "POST":
@@ -160,20 +180,23 @@ def login():
         conn = get_connection()
         cursor = conn.cursor()
 
-        cursor.execute("SELECT * FROM users WHERE email=?", (email,))
+        cursor.execute(
+            "SELECT * FROM users WHERE email=? AND password=?",
+            (email,password)
+        )
+
         user = cursor.fetchone()
 
         conn.close()
 
-        if user and check_password_hash(user[3], password):
-
-            session["user_id"] = user[0]
-            session["email"] = user[2]
+        if user:
+            session["user_id"] = user["id"]
+            session["username"] = user["username"]
 
             return redirect("/dashboard")
 
         else:
-            return "Invalid Credentials"
+            return "Invalid credentials"
 
     return render_template("login.html")
 
@@ -192,35 +215,38 @@ def logout():
 @app.route("/dashboard")
 def dashboard():
 
-    if "user_id" not in session:
-        return redirect("/login")
-
     conn = get_connection()
     cursor = conn.cursor()
 
     cursor.execute("""
-        SELECT id, title, department, location, deadline, emd,
-               relevance_score, risk_score, difficulty_score, fit_score
-        FROM tenders
-        ORDER BY fit_score DESC
-        LIMIT 12
+    SELECT * FROM tenders
+    ORDER BY id DESC
+    LIMIT 6
     """)
 
     tenders = cursor.fetchall()
 
     conn.close()
 
-    labels = [t[1] for t in tenders]
-    fit_scores = [t[9] for t in tenders]
+    return render_template("dashboard.html", tenders=tenders)
 
-    return render_template(
-        "dashboard.html",
-        tenders=tenders,
-        labels_json=json.dumps(labels),
-        fit_scores_json=json.dumps(fit_scores)
-    )
+@app.route("/tender/<int:tender_id>")
+def tender_detail(tender_id):
 
+    conn = get_connection()
+    cursor = conn.cursor()
 
+    tender = cursor.execute(
+        "SELECT * FROM tenders WHERE id=?",
+        (tender_id,)
+    ).fetchone()
+
+    conn.close()
+
+    if not tender:
+        return "Tender not found"
+
+    return render_template("tender_detail.html", tender=tender)
 # ---------------- ADD COMPANY PROFILE ----------------
 
 @app.route("/company", methods=["POST"])
@@ -245,6 +271,24 @@ def add_company():
 
     return redirect("/dashboard")
 
+@app.route("/profile")
+def profile():
+
+    user_id = session.get("user_id")
+
+    conn = get_connection()
+    cursor = conn.cursor()
+
+    cursor.execute(
+        "SELECT * FROM users WHERE id=?",
+        (user_id,)
+    )
+
+    user = cursor.fetchone()
+
+    conn.close()
+
+    return render_template("profile.html", user=user)
 
 # ---------------- ADD TENDER ----------------
 

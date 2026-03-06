@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container mt-5">
+
+<h2 class="fw-bold mb-4">👤 My Profile</h2>
+
+<div class="card shadow p-4">
+
+<p><b>Username:</b> {{ user.username }}</p>
+
+<p><b>Email:</b> {{ user.email }}</p>
+
+<p><b>Business Category:</b> {{ user.category }}</p>
+
+<p><b>Location:</b> {{ user.location }}</p>
+
+<p><b>Budget:</b> ₹{{ user.budget }}</p>
+
+</div>
+
+</div>
+
+{% endblock %}

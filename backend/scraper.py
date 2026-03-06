@@ -1,6 +1,6 @@
 import os
 from datetime import datetime
-
+from nlp_engine import summarize
 from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
@@ -113,6 +113,7 @@ def scrape_nagpur_tenders():
                 description = "Scraped from Nagpur municipal portal"
                 emd = 0
                 value=0
+                urgency=get_urgency(deadline)
 
 
                 # ---------------- AI SCORING ----------------
@@ -141,10 +142,11 @@ def scrape_nagpur_tenders():
                     relevance_score,
                     risk_score,
                     difficulty_score,
-                    fit_score
+                    fit_score,
+                    urgency
                 )
 
-                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+                VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
 
                 """, (
 
@@ -158,8 +160,17 @@ def scrape_nagpur_tenders():
                     relevance,
                     risk,
                     difficulty,
-                    fit
+                    fit,
+                    urgency
 
+                ))
+
+                cursor.execute("""
+                INSERT INTO notifications(title, message)
+                VALUES (?, ?)
+                """, (
+                "New Tender Added",
+                f"{title} is available. Deadline: {deadline}"
                 ))
 
 

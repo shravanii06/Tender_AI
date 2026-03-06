@@ -1,29 +1,43 @@
 {% extends "base.html" %}
 {% block content %}
 
-<!-- HERO SECTION -->
-<section class="hero-section p-5 text-center rounded-4 shadow-lg mb-5">
+<div class="container mt-5">
 
-<h1 class="fw-bold display-5 hero-title">
+<!-- HERO -->
+<div class="row justify-content-center mb-5">
+<div class="col-lg-10">
+
+<div class="hero-section text-center p-5 rounded-4 shadow-lg">
+
+<h1 class="fw-bold display-5">
 AI-Driven Local Government Tender Aggregator
 </h1>
 
-<p class="lead mt-3 hero-sub">
+<p class="lead mt-3">
 Find local tenders powered by AI insights, risk scoring & smart matching.
 </p>
 
 <div class="mt-4">
-<a href="/explore" class="btn-explore">🚀 Explore Tenders</a>
-<a href="/register" class="btn-register">📝 Register</a>
+
+<a href="/explore" class="btn btn-light btn-lg me-3">
+🚀 Explore Tenders
+</a>
+
+<a href="/register" class="btn btn-outline-light btn-lg">
+📝 Register
+</a>
+
+</div>
 </div>
 
-</section>
+</div>
+</div>
 
 
 <!-- FEATURES -->
 <div class="row text-center mb-5">
 
-<div class="col-md-3">
+<div class="col-md-3 mb-3">
 <div class="p-4 bg-white rounded-4 shadow-sm h-100">
 <h4>⚡</h4>
 <h6 class="fw-bold mt-2">AI-Powered Matching</h6>
@@ -31,7 +45,7 @@ Find local tenders powered by AI insights, risk scoring & smart matching.
 </div>
 </div>
 
-<div class="col-md-3">
+<div class="col-md-3 mb-3">
 <div class="p-4 bg-white rounded-4 shadow-sm h-100">
 <h4>🛡️</h4>
 <h6 class="fw-bold mt-2">Transparent Process</h6>
@@ -39,7 +53,7 @@ Find local tenders powered by AI insights, risk scoring & smart matching.
 </div>
 </div>
 
-<div class="col-md-3">
+<div class="col-md-3 mb-3">
 <div class="p-4 bg-white rounded-4 shadow-sm h-100">
 <h4>📈</h4>
 <h6 class="fw-bold mt-2">Real-Time Updates</h6>
@@ -47,7 +61,7 @@ Find local tenders powered by AI insights, risk scoring & smart matching.
 </div>
 </div>
 
-<div class="col-md-3">
+<div class="col-md-3 mb-3">
 <div class="p-4 bg-white rounded-4 shadow-sm h-100">
 <h4>👥</h4>
 <h6 class="fw-bold mt-2">SME Friendly</h6>
@@ -58,48 +72,31 @@ Find local tenders powered by AI insights, risk scoring & smart matching.
 </div>
 
 
-<!-- STATS -->
-<div class="row text-center mb-5">
+<hr class="mb-5">
 
-<div class="col-md-3">
-<h3 class="fw-bold text-primary">2,500+</h3>
-<p class="text-muted">Active Tenders</p>
-</div>
-
-<div class="col-md-3">
-<h3 class="fw-bold text-success">15,000+</h3>
-<p class="text-muted">Registered Businesses</p>
-</div>
-
-<div class="col-md-3">
-<h3 class="fw-bold text-danger">$2.5B+</h3>
-<p class="text-muted">Total Value</p>
-</div>
-
-<div class="col-md-3">
-<h3 class="fw-bold text-dark">98%</h3>
-<p class="text-muted">Satisfaction Rate</p>
-</div>
-
-</div>
-
-<hr class="mb-4">
 
 <!-- LATEST TENDERS -->
-<h3 class="mb-4 fw-bold">Latest Tenders</h3>
+<h3 class="fw-bold mb-4 text-center">Latest Tenders</h3>
 
 {% if tenders %}
+
 <div class="row">
 
 {% for tender in tenders %}
+
 <div class="col-md-4 mb-4">
 
-<div class="card border-0 shadow-lg rounded-4 h-100">
+<div class="card shadow-lg border-0 rounded-4 h-100">
+
 <div class="card-body">
 
-<h5 class="fw-bold">{{ tender.title }}</h5>
+<h5 class="fw-bold">
+<a href="/tender/{{ tender.id }}" class="text-decoration-none text-dark">
+{{ tender.title }}
+</a>
+</h5>
 
-<p class="text-muted small mb-1">
+<p class="text-muted small">
 {{ tender.department }}
 </p>
 
@@ -110,7 +107,7 @@ Find local tenders powered by AI insights, risk scoring & smart matching.
 
 <hr>
 
-<div class="d-flex justify-content-between small">
+<div class="d-flex flex-wrap gap-2 small">
 
 <span class="badge bg-danger">
 Risk {{ tender.risk_score }}
@@ -134,11 +131,17 @@ Fit {{ tender.fit_score }}
 </div>
 
 </div>
+
 {% endfor %}
 
 </div>
+
 {% else %}
-<p class="text-muted">No tenders available yet.</p>
+
+<p class="text-muted text-center">No tenders available yet.</p>
+
 {% endif %}
+
+</div>
 
 {% endblock %}
