@@ -112,13 +112,14 @@ def scrape_nagpur_tenders():
                 category = "General"
                 description = "Scraped from Nagpur municipal portal"
                 emd = 0
+                value=0
 
 
                 # ---------------- AI SCORING ----------------
 
                 relevance = calculate_relevance(title, description)
 
-                risk = calculate_risk(deadline, emd)
+                risk = calculate_risk(value, emd)
 
                 difficulty = calculate_difficulty(title, category)
 
